@@ -1,6 +1,7 @@
 import gradio as gr
 import pickle
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -68,7 +69,9 @@ def plot_prediction(prediction, std_dev):
     return filepath
 
 def predict_price(square_feet, bedrooms, bathrooms, age_years, lot_size, garage_spaces, neighborhood_score):
-    input_data = np.array([[square_feet, bedrooms, bathrooms, age_years, lot_size, garage_spaces, neighborhood_score]])
+    # Créer un DataFrame avec les noms de colonnes pour éviter l'avertissement
+    input_data = pd.DataFrame([[square_feet, bedrooms, bathrooms, age_years, lot_size, garage_spaces, neighborhood_score]], 
+                              columns=feature_names)
     input_scaled = scaler.transform(input_data)
     
     prediction = model.predict(input_scaled)[0]

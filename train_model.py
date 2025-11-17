@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 import pickle
+import os
 
 np.random.seed(42)
 
@@ -41,6 +42,9 @@ df = pd.DataFrame({
     'neighborhood_score': neighborhood_score,
     'price': price
 })
+
+os.makedirs('data', exist_ok=True)
+df.to_csv('data/house_data.csv', index=False)
 
 feature_names = ['square_feet', 'bedrooms', 'bathrooms', 'age_years', 
                  'lot_size', 'garage_spaces', 'neighborhood_score']
